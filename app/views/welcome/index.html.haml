@@ -10,8 +10,9 @@
   %button.btn.btn-success
     = link_to('Manage your records', records_path)
 - else
-  To start simply create
-  = link_to('free account', new_user_registration_path)
+  To start simply
+  %button.btn.btn-primary
+    = link_to('create free account', new_user_registration_path)
   or
   = link_to('login', records_path)
   if you already have one.
