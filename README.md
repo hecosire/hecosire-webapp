@@ -2,4 +2,4 @@
 
 Early spike, proof of concept.
 
-Check it out here: hecosire.com
+Check it out here: http://hecosire.com
