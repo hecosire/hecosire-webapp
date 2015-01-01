@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b You felt:
+  = @record.health_state
+
+- if @record.comment.present?
+  %p
+    %b Your comments:
+    = @record.comment
+
+
+= link_to 'Edit', edit_record_path(@record)
+\|
+= link_to 'Back', records_path

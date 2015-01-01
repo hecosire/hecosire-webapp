@@ -1,0 +1,31 @@
+%h1 How are you feeling?
+
+%button.btn.btn-success
+  = link_to 'New Record', new_record_path
+
+- unless @records.empty?
+
+  %h1 How you felt..
+
+  %table.table
+    %thead
+      %tr
+        %th Date
+        %th Health state
+        %th
+        %th
+        %th
+
+    %tbody
+      - @records.each do |record|
+        %tr
+          %td
+            = time_ago_in_words(record.created_at)
+            ago
+          %td= record.health_state
+          %td= link_to 'Show', record
+          %td= link_to 'Edit', edit_record_path(record)
+          %td= link_to 'Destroy', record, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+  = will_paginate @records
+  %br

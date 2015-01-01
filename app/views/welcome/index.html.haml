@@ -1,0 +1,56 @@
+.jumbotron
+  %h1 HeCoSiRe
+  %p
+    Healthy, Coming Down, Sick & Recovering.
+
+
+%p You can use HeCoSiRe to track how you feel and get insight into your health.
+
+- if user_signed_in?
+  %button.btn.btn-success
+    = link_to('Manage your records', records_path)
+- else
+  To start simply create
+  = link_to('free account', new_user_registration_path)
+  or
+  = link_to('login', records_path)
+  if you already have one.
+
+%h1 How it works
+
+Whenever you feel like (we recommend at least daily) capture how you feel using the app.
+
+.container
+  .row
+    .col-sm-12.col-lg-6
+      .panel.panel-default
+        .panel-heading
+          Healthy
+        .panel-body
+          You feeling healthy, great!
+
+    .col-sm-12.col-lg-6
+      .panel.panel-default
+        .panel-heading
+          Coming Down
+        .panel-body
+          You don't feel quite right, maybe you getting down with cold?
+  .row
+    .col-sm-12.col-lg-6
+      .panel.panel-default
+        .panel-heading
+          Sick
+        .panel-body
+          No doubt, you feel sick. You probably should see a doctor and stay home.
+    .col-sm-12.col-lg-6
+      .panel.panel-default
+        .panel-heading
+          Recovering
+        .panel-body
+          Still not 100% healthy, but getting better.
+
+
+%h2 The benefit
+
+The data you capture will help you reflect on your health. Overtime we hope to provide insights that will allow you to be more often healthy.
+

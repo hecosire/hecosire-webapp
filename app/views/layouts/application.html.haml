@@ -1,0 +1,42 @@
+!!!
+%html
+  %head
+    %meta{:name => "viewport", :content => "width=device-width, initial-scale=1, maximum-scale=1"}
+    %title= content_for?(:title) ? yield(:title) : "Hecosire"
+    %meta{:content => content_for?(:description) ? yield(:description) : "Hecosire", :name => "description"}
+    = stylesheet_link_tag :application, :media => "all"
+    = javascript_include_tag :application
+    = csrf_meta_tags
+    = yield(:head)
+  %body
+    %nav.navbar.navbar-inverse.navbar-fixed-top
+      .container
+        .navbar-header
+          %button.navbar-toggle.collapsed{"aria-controls" => "navbar", "aria-expanded" => "false", "data-target" => "#navbar", "data-toggle" => "collapse", :type => "button"}
+            %span.sr-only Toggle navigation
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+          %a.navbar-brand{:href => "/"} hecosire.com
+        #navbar.navbar-collapse.collapse
+          %form.navbar-form.navbar-right
+            - if user_signed_in?
+              .logged-in-user
+                = "Hi #{current_user.email}!"
+                %button.btn.btn-danger
+                  = link_to("Logout", destroy_user_session_path, :method => :delete)
+            - else
+              %button.btn.btn-success
+                = link_to('Login', new_user_session_path)
+
+    #main{:role => "main"}
+      .container
+        .content
+          .row
+            .span12
+              = render 'layouts/messages'
+              = yield
+        %footer
+          %hr
+          Contact
+          %a{:href => "https://twitter.com/hecosire"}@hecosire

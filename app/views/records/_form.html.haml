@@ -1,0 +1,20 @@
+.panel.panel-default
+  .panel-body
+    = form_for @record do |f|
+      - if @record.errors.any?
+        #error_explanation
+          %h2= "#{pluralize(@record.errors.count, "error")} prohibited this record from being saved:"
+          %ul
+            - @record.errors.full_messages.each do |msg|
+              %li= msg
+
+      .field.form-group
+        = f.label 'I am'
+        = f.select :health_state_id do
+          - @health_state_select.each do |state|
+            = content_tag(:option, state.name, value: state.id)
+      .field.form-group
+        = f.label :comment
+        = f.text_area :comment
+      .actions
+        = f.submit 'Save', class: "btn btn-default btn-primary"
