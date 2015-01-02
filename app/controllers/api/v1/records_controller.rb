@@ -7,7 +7,12 @@ module Api
       before_action :make_sure_valid_user
 
       def index
-        respond_with({ test: "works" })
+        @records = Record.includes(:health_state).where(user: current_api_v1_user).order('created_at DESC').paginate(:page => params[:page], :per_page => 10).all
+        respond_to do |format|
+          format.json do
+            render :json => @records.to_json(:include => { :health_state => { :only => :name } }, :except => [:user_id, :health_state_id])
+          end
+        end
       end
 
       private
