@@ -13,7 +13,7 @@ module Api
       private
 
       def make_sure_valid_user
-        head(401) unless current_user
+        respond_with({ test: "problems" }) unless current_user
       end
 
     end
