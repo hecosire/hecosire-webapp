@@ -2,7 +2,7 @@ module Api
   module V1
     class RecordsController < BaseApiController
 
-      acts_as_token_authentication_handler_for User, fallback_to_devise: false
+      acts_as_token_authentication_handler_for User
 
       before_action :make_sure_valid_user
 
