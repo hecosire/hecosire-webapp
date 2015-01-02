@@ -13,7 +13,7 @@ module Api
       private
 
       def make_sure_valid_user
-        respond_with({ test: "problems", email: request.headers['X-User-Email'], token: User.find_by_email(request.headers['X-User-Email']) }) unless current_user
+        respond_with({ test: "problems", email: request.headers['X-User-Email'], mytoken: request.headers['X-User-Token'],  token: User.find_by_email(request.headers['X-User-Email']) }) unless current_user
       end
 
     end
