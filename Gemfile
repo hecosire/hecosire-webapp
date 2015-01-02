@@ -58,3 +58,4 @@ gem 'dotenv-rails', :groups => [:development, :test]
 gem 'rollbar', '~> 1.2.7'
 
 gem 'will_paginate'
+gem 'simple_token_authentication', '~> 1.0'
