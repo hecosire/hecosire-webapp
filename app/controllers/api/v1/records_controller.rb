@@ -15,10 +15,25 @@ module Api
         end
       end
 
+      def create
+        @record = Record.new(record_params)
+        if @record.save
+
+          respond_with(@record, status: 201)
+        else
+          respond_with(@record, status: 400)
+        end
+      end
+
       private
 
       def make_sure_valid_user
         head(401) unless current_user
+      end
+
+      def record_params
+        p = params.require(:record).permit(:health_state_id, :comment)
+        p.merge(:user => current_user)
       end
 
     end
