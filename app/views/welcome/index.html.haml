@@ -11,6 +11,10 @@
   %a{:href => records_path, :rel => 'nofollow'}
     %button.btn.btn-success
       Manage your records
+  %a{:href => new_record_path, :rel => 'nofollow'}
+    %button.btn.btn-primary
+      Report how you feel
+
 - else
   To start simply
   %a{:href => new_user_registration_path, :rel => 'nofollow'}
