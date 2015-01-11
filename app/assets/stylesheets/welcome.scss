@@ -1,3 +1,52 @@
 // Place all the styles related to the welcome controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.panel-health-state {
+  height: 300px;
+  margin-top: 10px;
+}
+
+.panel-body {
+  height: 100%;
+  padding: 10px 0 0 10px;
+}
+
+.panel-health-body-content {
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: right bottom;
+  height: 86%;
+  position: relative;
+
+}
+
+.panel-health-body-text {
+  background-color:rgba(255,255,255,0.5);
+  height: 100%;
+  width: 100%;
+}
+
+.panel-health-body-content-sick {
+  background-image: image-url("sick_picture.jpg");
+}
+
+
+.panel-health-body-content-coming-down {
+  background-image: image-url("coming_down_picture.jpg");
+}
+
+.panel-health-body-content-healthy {
+  background-image: image-url("healthy_picture.jpg");
+}
+
+.panel-health-body-content-recovery {
+  background-image: image-url("recovery_picture.jpg");
+}
+
+
+.health-state-image {
+  max-width: 200px;
+  max-height: 200px;
+  display: block;
+}
