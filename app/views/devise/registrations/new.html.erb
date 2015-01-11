@@ -1,31 +1,50 @@
-<h2>Sign up for free</h2>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-6">
+      <h2>Sign up for free</h2>
 
-<p>You can use HeCoSiRe to track how you feel and get insight into your health.</p>
+      <p>You can use HeCoSiRe to track how you feel and get insight into your health.</p>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= devise_error_messages! %>
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+        <%= devise_error_messages! %>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
+        <div class="field">
+          <%= f.label :email %><br />
+          <%= f.email_field :email, autofocus: true %>
+        </div>
+
+        <div class="field">
+          <%= f.label :password %>
+          <% if @validatable %>
+            <em>(<%= @minimum_password_length %> characters minimum)</em>
+          <% end %><br />
+          <%= f.password_field :password, autocomplete: "off" %>
+        </div>
+
+        <div class="field">
+          <%= f.label :password_confirmation %><br />
+          <%= f.password_field :password_confirmation, autocomplete: "off" %>
+        </div>
+
+        <div class="actions">
+          <%= f.submit "Sign up" %>
+        </div>
+      <% end %>
+
+    </div>
+    <div class="col-xs-12 col-sm-6">
+      <h2>Why should you join?</h2>
+      <ul>
+        <li><b>You are unique.</b> Learn what does and doesn't work for you.</li>
+        <li><b>Easily track</b> how you feel using web and mobile.</li>
+        <li><b>We value your privacy</b>. We won't share your data without your agreement</li>
+        <li>And it's <b>free</b></li>
+      </ul>
+      <hr/>
+      <%= render "devise/shared/links" %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= f.label :password %>
-    <% if @validatable %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-  </div>
+</div>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
-  </div>
 
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
