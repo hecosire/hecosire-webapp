@@ -86,7 +86,10 @@
                 type: 'timeseries',
                 tick: {
                     format: '%Y-%m-%d %I:%M',
-                    rotate: 40
+                    rotate: 40,
+                    culling: {
+                    max: 4 // the number of tick texts will be adjusted to less than this value
+                    }
                 },
 
             },

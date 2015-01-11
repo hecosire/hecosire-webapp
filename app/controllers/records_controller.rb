@@ -8,7 +8,7 @@ class RecordsController < ApplicationController
   respond_to :html
 
   def index
-    @records = Record.where(user: current_user).order('created_at DESC').paginate(:page => params[:page], :per_page => 10).all
+    @records = Record.where(user: current_user).order('created_at DESC').paginate(:page => params[:page], :per_page => 20).all
     @stats = {
         healthy: @records.select{|r| r.health_state_id == 1}.count,
         coming_down: @records.select{|r| r.health_state_id == 2}.count,
@@ -16,9 +16,8 @@ class RecordsController < ApplicationController
         recovering: @records.select{|r| r.health_state_id == 4}.count,
     }
 
-    @last_week = @records#.select{|r| r.created_at > 7.days.ago }
-    @dates_for_timechart = @last_week.map {|r| "'#{r.created_at.strftime("%Y-%m-%d %I:%M")}'"}.join(',')
-    @states_for_timechart = @last_week.map {|r| "'#{map_health_state_id_for_view(r.health_state_id)}'"}.join(',')
+    @dates_for_timechart = @records.map {|r| "'#{r.created_at.strftime("%Y-%m-%d %I:%M")}'"}.join(',')
+    @states_for_timechart = @records.map {|r| "'#{map_health_state_id_for_view(r.health_state_id)}'"}.join(',')
     respond_with(@records)
   end
 
