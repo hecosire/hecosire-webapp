@@ -8,4 +8,12 @@
 .panel-body-record {
   max-width: 380px;
 
+  select {
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+
+  textarea, select {
+    width: 100%;
+  }
 }
