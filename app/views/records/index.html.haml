@@ -1,7 +1,8 @@
 %h1 How are you feeling?
 
-%button.btn.btn-success
-  = link_to 'New Record', new_record_path
+%a{:href => new_record_path, :rel => 'nofollow'}
+  %button.btn.btn-primary
+    New Record
 
 - unless @records.empty?
 

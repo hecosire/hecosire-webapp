@@ -2,6 +2,15 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+@media (max-width: 600px) {
+
+  .jumbotron p {
+    font-size: 15px;
+    margin-bottom: 0;
+  }
+
+}
+
 .panel-health-state {
   height: 300px;
   margin-top: 10px;

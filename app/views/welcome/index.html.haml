@@ -8,12 +8,14 @@
 %p You can use HeCoSiRe to track how you feel and get insight into your health.
 
 - if user_signed_in?
-  %button.btn.btn-success
-    = link_to('Manage your records', records_path, :rel => 'nofollow')
+  %a{:href => records_path, :rel => 'nofollow'}
+    %button.btn.btn-success
+      Manage your records
 - else
   To start simply
-  %button.btn.btn-primary
-    = link_to('create free account', new_user_registration_path, :rel => 'nofollow')
+  %a{:href => new_user_registration_path, :rel => 'nofollow'}
+    %button.btn.btn-primary
+      create free account
   or
   = link_to('login', records_path, :rel => 'nofollow')
   if you already have one.
