@@ -9,13 +9,13 @@
 
 - if user_signed_in?
   %button.btn.btn-success
-    = link_to('Manage your records', records_path)
+    = link_to('Manage your records', records_path, :rel => 'nofollow')
 - else
   To start simply
   %button.btn.btn-primary
-    = link_to('create free account', new_user_registration_path)
+    = link_to('create free account', new_user_registration_path, :rel => 'nofollow')
   or
-  = link_to('login', records_path)
+  = link_to('login', records_path, :rel => 'nofollow')
   if you already have one.
 
 %h1 How it works

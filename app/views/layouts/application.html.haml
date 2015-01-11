@@ -35,10 +35,10 @@
               .logged-in-user
                 = "Hi #{current_user.email}!"
                 %button.btn.btn-danger
-                  = link_to("Logout", destroy_user_session_path, :method => :delete)
+                  = link_to("Logout", destroy_user_session_path, :method => :delete, :rel => 'nofollow')
             - else
               %button.btn.btn-success
-                = link_to('Login', new_user_session_path)
+                = link_to('Login', new_user_session_path, :rel => 'nofollow')
 
     #main{:role => "main"}
       .container
