@@ -9,6 +9,16 @@ class RecordsController < ApplicationController
 
   def index
     @records = Record.where(user: current_user).order('created_at DESC').paginate(:page => params[:page], :per_page => 10).all
+    @stats = {
+        healthy: @records.select{|r| r.health_state_id == 1}.count,
+        coming_down: @records.select{|r| r.health_state_id == 2}.count,
+        sick: @records.select{|r| r.health_state_id == 3}.count,
+        recovering: @records.select{|r| r.health_state_id == 4}.count,
+    }
+
+    @last_week = @records#.select{|r| r.created_at > 7.days.ago }
+    @dates_for_timechart = @last_week.map {|r| "'#{r.created_at.strftime("%Y-%m-%d %I:%M")}'"}.join(',')
+    @states_for_timechart = @last_week.map {|r| "'#{map_health_state_id_for_view(r.health_state_id)}'"}.join(',')
     respond_with(@records)
   end
 
@@ -44,6 +54,16 @@ class RecordsController < ApplicationController
   end
 
   private
+
+    def map_health_state_id_for_view(id)
+      {
+        1 => 4,
+        2 => 2,
+        3 => 1,
+        4 => 3,
+
+      }[id]
+    end
 
     def set_health_state
       @health_state_select = HealthState.all
