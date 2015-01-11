@@ -2,7 +2,7 @@
 %html
   %head
     %meta{:name => "viewport", :content => "width=device-width, initial-scale=1, maximum-scale=1"}
-    %title= content_for?(:title) ? yield(:title) : "HeCoSiRe"
+    %title= "HeCoSiRe | #{content_for?(:title) ? yield(:title) : "Track how you feeling"}"
     %meta{:content => content_for?(:description) ? yield(:description) : "Hecosire track how you feel and get insight into your health", :name => "description"}
     %meta{:name=>"google-site-verification", :content=>"LKEVjbN-vEp8hM5YmwbTTxeDYctags3Zy3FUeqaRoYQ"}
     %link{:href => "/favicon.ico", :rel => "shortcut icon", :type => "image/x-icon"}
