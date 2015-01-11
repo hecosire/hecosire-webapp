@@ -11,8 +11,6 @@
     .row
       .col-xs-12
         %h1 How you felt..
-
-        #chart-time
     .row
       .col-xs-12.col-sm-6
 
@@ -39,65 +37,14 @@
         = will_paginate @records
         %br
       .col-xs-12.col-sm-6
-        #chart
-- content_for :javascript do
-  :javascript
-    $(function(){
-      var chart = c3.generate({
-            bindto: '#chart',
-            data: {
-              columns: [
-                ['Healthy', #{@stats[:healthy]}],
-                ['Coming down', #{@stats[:coming_down]}],
-                ['Sick', #{@stats[:sick]}],
-                ['Recovering', #{@stats[:recovering]}]
-              ],
-              type: 'pie'
-            },
-        });
-
-      var chart2 = c3.generate({
-        bindto: '#chart-time',
-        data: {
-            x: 'x',
-            xFormat: '%Y-%m-%d %I:%M', // 'xFormat' can be used as custom format of 'x'
-            columns: [
-                ['x',
-                #{@dates_for_timechart}
-                ],
-                ['y',
-                #{@states_for_timechart}
-                ]
-
-            ]
-        },
-        grid: {
-          y: {
-            lines: [
-            {value: 3.99, text: 'Healthy'} ,
-            {value: 2.99, text: 'Recovering'},
-            {value: 1.99, text: 'Coming down'},
-            {value: 0.99, text: 'Sick'}
-            ]
-         }
-        },
-        axis: {
-            x: {
-                type: 'timeseries',
-                tick: {
-                    format: '%Y-%m-%d %I:%M',
-                    rotate: 40,
-                    culling: {
-                    max: 4 // the number of tick texts will be adjusted to less than this value
-                    }
-                },
-
-            },
-            y: {
-            tick: {
-               values: [1, 2, 3, 4]
-            }
-          }
-        }
-    });
-    });
+        - if @has_stats
+          %p
+            We have prepared some useful graphs and stats just for you..
+          %a{:href => records_stats_path, :rel => 'nofollow'}
+            %button.btn.btn-success
+              See my stats
+        - else
+          %p
+            Looks like you are new to HeCoSiRe.. Keep tracking and in few days we will prepare stats for you.
+          %button.btn.btn-disabled
+            See my stats

@@ -8,7 +8,16 @@ class RecordsController < ApplicationController
   respond_to :html
 
   def index
+    @records = Record.where(user_id: current_user).order('created_at DESC').paginate(:page => params[:page], :per_page => 10).all
+    if @records.size > 0
+      @has_stats = @records.last.created_at < 1.days.ago
+    end
+    respond_with(@records)
+  end
+
+  def stats
     @records = Record.where(user: current_user).order('created_at DESC').paginate(:page => params[:page], :per_page => 20).all
+
     @stats = {
         healthy: @records.select{|r| r.health_state_id == 1}.count,
         coming_down: @records.select{|r| r.health_state_id == 2}.count,

@@ -1,0 +1,79 @@
+- content_for(:title, "Records")
+
+- unless @records.empty?
+  .container
+    .row
+      .col-xs-12
+        %h1 How you felt..
+        Displaying data going back
+        = time_ago_in_words(@records.last.created_at)
+        #chart-time.chart
+    .row
+      .col-xs-12
+        #chart.chart
+        %hr
+        %a{:href => records_path, :rel => 'nofollow'}
+          %button.btn.btn-success
+            Go back to your records
+
+- content_for :javascript do
+  :javascript
+    $(function(){
+      var chart = c3.generate({
+            bindto: '#chart',
+            data: {
+              columns: [
+                ['Healthy', #{@stats[:healthy]}],
+                ['Coming down', #{@stats[:coming_down]}],
+                ['Sick', #{@stats[:sick]}],
+                ['Recovering', #{@stats[:recovering]}]
+              ],
+              type: 'pie'
+            },
+        });
+
+      var chart2 = c3.generate({
+        bindto: '#chart-time',
+        data: {
+            x: 'x',
+            xFormat: '%Y-%m-%d %I:%M', // 'xFormat' can be used as custom format of 'x'
+            columns: [
+                ['x',
+                #{@dates_for_timechart}
+                ],
+                ['y',
+                #{@states_for_timechart}
+                ]
+
+            ]
+        },
+        grid: {
+          y: {
+            lines: [
+            {value: 3.99, text: 'Healthy'} ,
+            {value: 2.99, text: 'Recovering'},
+            {value: 1.99, text: 'Coming down'},
+            {value: 0.99, text: 'Sick'}
+            ]
+         }
+        },
+        axis: {
+            x: {
+                type: 'timeseries',
+                tick: {
+                    format: '%Y-%m-%d %I:%M',
+                    rotate: 40,
+                    culling: {
+                    max: 4 // the number of tick texts will be adjusted to less than this value
+                    }
+                },
+
+            },
+            y: {
+            tick: {
+               values: [1, 2, 3, 4]
+            }
+          }
+        }
+    });
+    });

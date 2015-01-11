@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     end
   end
 
+  match '/records/stats' => 'records#stats', :via => :get
   resources :records
 
 end
