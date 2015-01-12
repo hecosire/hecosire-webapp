@@ -23,10 +23,10 @@
             bindto: '#chart',
             data: {
               columns: [
-                ['Healthy', #{@stats[:healthy]}],
-                ['Coming down', #{@stats[:coming_down]}],
-                ['Sick', #{@stats[:sick]}],
-                ['Recovering', #{@stats[:recovering]}]
+                ['Healthy', #{@records_stats.stats[:healthy]}],
+                ['Coming down', #{@records_stats.stats[:coming_down]}],
+                ['Sick', #{@records_stats.stats[:sick]}],
+                ['Recovering', #{@records_stats.stats[:recovering]}]
               ],
               type: 'pie'
             },
@@ -39,10 +39,10 @@
             xFormat: '%Y-%m-%d %I:%M', // 'xFormat' can be used as custom format of 'x'
             columns: [
                 ['x',
-                #{@dates_for_timechart}
+                #{@records_stats.dates_for_timechart}
                 ],
                 ['y',
-                #{@states_for_timechart}
+                #{@records_stats.states_for_timechart}
                 ]
 
             ]
