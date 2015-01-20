@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/hecosire/hecosire-webapp.svg?branch=master)](https://travis-ci.org/hecosire/hecosire-webapp)
 [![Dependency Status](https://gemnasium.com/hecosire/hecosire-webapp.svg)](https://gemnasium.com/hecosire/hecosire-webapp)
+[![Code Climate](https://codeclimate.com/github/hecosire/hecosire-webapp/badges/gpa.svg)](https://codeclimate.com/github/hecosire/hecosire-webapp)
 
 Early spike, proof of concept.
 
