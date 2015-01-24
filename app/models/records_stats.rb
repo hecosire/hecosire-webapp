@@ -7,29 +7,36 @@ class RecordsStats
 
   def initialize(records)
     @records = records
+    @stats = {}
   end
 
-  def stats
-    @stats ||=  {
-        healthy: records_for(HEALTHY_ID).count,
-        coming_down: records_for(COMING_DOWN_ID).count,
-        sick: records_for(SICK_ID).count,
-        recovering: records_for(RECOVERING_ID).count,
+  def stats(days_back=7)
+    return @stats[days_back] if @stats[days_back]
+    @stats[days_back] = {
+        healthy: records_for(HEALTHY_ID, days_back).count,
+        coming_down: records_for(COMING_DOWN_ID, days_back).count,
+        sick: records_for(SICK_ID, days_back).count,
+        recovering: records_for(RECOVERING_ID, days_back).count,
     }
+    @stats[days_back]
   end
 
-  def dates_for_timechart
-    @records.map {|r| "'#{r.created_at.strftime("%Y-%m-%d %H:%M")}'"}.join(',')
+  def dates_for_timechart(days_back=7)
+    records_days_back(days_back).map {|r| "'#{r.created_at.strftime("%Y-%m-%d %H:%M")}'"}.join(',')
   end
 
-  def states_for_timechart
-    @records.map {|r| "'#{map_health_state_id_for_view(r.health_state_id)}'"}.join(',')
+  def states_for_timechart(days_back=7)
+    records_days_back(days_back).map {|r| "'#{map_health_state_id_for_view(r.health_state_id)}'"}.join(',')
   end
 
   private
 
-  def records_for(state_id)
-    @records.select{|r| r.health_state_id == state_id}
+  def records_days_back(days_back)
+    @records.select{|r|r.created_at > days_back.days.ago }
+  end
+
+  def records_for(state_id, days_back)
+    records_days_back(days_back).select{|r| r.health_state_id == state_id}
   end
 
   def map_health_state_id_for_view(id)

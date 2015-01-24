@@ -1,16 +1,28 @@
 - content_for(:title, "Records")
 
 - unless @records.empty?
+
+  = will_paginate @records
+
   .container
     .row
       .col-xs-12
         %h1 How you felt..
         Displaying data going back
         = time_ago_in_words(@records.last.created_at)
-        #chart-time.chart
     .row
       .col-xs-12
-        #chart.chart
+        %h2 Last week
+        #chart-time-week.chart
+        #chart-week.chart
+    .row
+      .col-xs-12
+        %h2 Last month
+        #chart-time-month.chart
+        #chart-month.chart
+
+    .row
+      .col-xs-12
         %hr
         %a{:href => records_path, :rel => 'nofollow'}
           %button.btn.btn-success
@@ -19,61 +31,43 @@
 - content_for :javascript do
   :javascript
     $(function(){
-      var chart = c3.generate({
-            bindto: '#chart',
-            data: {
-              columns: [
-                ['Healthy', #{@records_stats.stats[:healthy]}],
-                ['Coming down', #{@records_stats.stats[:coming_down]}],
-                ['Sick', #{@records_stats.stats[:sick]}],
-                ['Recovering', #{@records_stats.stats[:recovering]}]
-              ],
-              type: 'pie'
-            },
-        });
 
-      var chart2 = c3.generate({
-        bindto: '#chart-time',
-        data: {
-            x: 'x',
-            xFormat: '%Y-%m-%d %I:%M', // 'xFormat' can be used as custom format of 'x'
-            columns: [
+      var pieChartLastWeekColumns = [
+                ['Healthy', #{@records_stats.stats(7)[:healthy]}],
+                ['Coming down', #{@records_stats.stats(7)[:coming_down]}],
+                ['Sick', #{@records_stats.stats(7)[:sick]}],
+                ['Recovering', #{@records_stats.stats(7)[:recovering]}]
+              ];
+
+      var linesChartLastWeekColumns = [
                 ['x',
-                #{@records_stats.dates_for_timechart}
+                #{@records_stats.dates_for_timechart(7)}
                 ],
                 ['y',
-                #{@records_stats.states_for_timechart}
+                #{@records_stats.states_for_timechart(7)}
                 ]
 
-            ]
-        },
-        grid: {
-          y: {
-            lines: [
-            {value: 3.99, text: 'Healthy'} ,
-            {value: 2.99, text: 'Recovering'},
-            {value: 1.99, text: 'Coming down'},
-            {value: 0.99, text: 'Sick'}
-            ]
-         }
-        },
-        axis: {
-            x: {
-                type: 'timeseries',
-                tick: {
-                    format: '%Y-%m-%d %I:%M',
-                    rotate: 40,
-                    culling: {
-                    max: 4 // the number of tick texts will be adjusted to less than this value
-                    }
-                },
+            ];
 
-            },
-            y: {
-            tick: {
-               values: [1, 2, 3, 4]
-            }
-          }
-        }
-    });
+      var pieChartLastMonthColumns = [
+                ['Healthy', #{@records_stats.stats(31)[:healthy]}],
+                ['Coming down', #{@records_stats.stats(31)[:coming_down]}],
+                ['Sick', #{@records_stats.stats(31)[:sick]}],
+                ['Recovering', #{@records_stats.stats(31)[:recovering]}]
+              ];
+
+      var linesChartLastMonthColumns = [
+                ['x',
+                #{@records_stats.dates_for_timechart(31)}
+                ],
+                ['y',
+                #{@records_stats.states_for_timechart(31)}
+                ]
+
+            ];
+
+
+      Hecosire.generateStatCharts('#chart-week', pieChartLastWeekColumns, '#chart-time-week', linesChartLastWeekColumns);
+      Hecosire.generateStatCharts('#chart-month', pieChartLastMonthColumns, '#chart-time-month', linesChartLastMonthColumns);
+
     });

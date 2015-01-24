@@ -8,7 +8,7 @@ class RecordsController < ApplicationController
   respond_to :html
 
   def index
-    @records = Record.where(user_id: current_user).order('created_at DESC').paginate(:page => params[:page], :per_page => 10).all
+    @records = records.paginate(:page => params[:page], :per_page => 10).all
     if @records.size > 0
       @has_stats = @records.last.created_at < 1.days.ago
     end
@@ -16,7 +16,7 @@ class RecordsController < ApplicationController
   end
 
   def stats
-    @records = Record.where(user: current_user).order('created_at DESC').paginate(:page => params[:page], :per_page => 20).all
+    @records = records.paginate(:page => params[:page], :per_page => 150).all
 
     @records_stats = RecordsStats.new(@records)
 
@@ -56,16 +56,20 @@ class RecordsController < ApplicationController
 
   private
 
-    def set_health_state
-      @health_state_select = HealthState.all
-    end
+  def records
+    Record.where(user_id: current_user).order('created_at DESC')
+  end
 
-    def set_record
-      @record = Record.where(user: current_user).find(params[:id])
-    end
+  def set_health_state
+    @health_state_select = HealthState.all
+  end
 
-    def record_params
-      p = params.require(:record).permit(:health_state_id, :comment)
-      p.merge(:user => current_user)
-    end
+  def set_record
+    @record = Record.where(user: current_user).find(params[:id])
+  end
+
+  def record_params
+    p = params.require(:record).permit(:health_state_id, :comment)
+    p.merge(:user => current_user)
+  end
 end
