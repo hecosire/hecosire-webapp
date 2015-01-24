@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   end
 
   match '/records/stats' => 'records#stats', :via => :get
+  match '/records/blog' => 'records#blog', :via => :get
   resources :records
 
 end

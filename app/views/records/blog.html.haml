@@ -1,0 +1,39 @@
+- content_for(:title, "Blog")
+
+- if @records.empty?
+  When you create records with comments, they are displayed here.
+
+- unless @records.empty?
+
+
+  .container
+    .row
+      .col-xs-12
+        %h1 Blog
+        %i
+          Displaying data going back
+          = time_ago_in_words(@records.last.created_at)
+        %hr
+        - @records.each do |record|
+          - if record.comment.present?
+            .panel.panel-default
+              .panel-heading
+                %h3.panel-title
+                  %i
+                    = record.created_at.to_formatted_s(:long_ordinal)
+                  %b
+                    = record.health_state
+              .panel-body
+                = record.comment
+                %br
+                %br
+    .row
+      .col-xs-12
+        = will_paginate @records
+    .row
+      .col-xs-12
+        %hr
+        %a{:href => records_path, :rel => 'nofollow'}
+          %button.btn.btn-success
+            Go back to your records
+
