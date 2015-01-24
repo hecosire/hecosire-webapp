@@ -23,7 +23,7 @@ class RecordsController < ApplicationController
     respond_with(@records)
   end
 
-  def blog
+  def log
     @records = records.where("comment is NOT NULL and comment != ''").paginate(:page => params[:page], :per_page => 10).all
     respond_with(@records)
   end
