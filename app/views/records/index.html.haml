@@ -35,6 +35,10 @@
                 %td= link_to 'Destroy', record, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
         = will_paginate @records
+        %hr
+          %a{:href => "#{records_export_path}.csv", :rel => 'nofollow'}
+            %button.btn.btn-success
+              Export records as csv file
         %br
       .col-xs-12.col-sm-6
         - if @has_stats
@@ -46,6 +50,7 @@
           %a{:href => records_blog_path, :rel => 'nofollow'}
             %button.btn.btn-success
               See my personal blog
+
         - else
           %p
             Looks like you are new to HeCoSiRe.. Keep tracking and in few days we will prepare stats for you.

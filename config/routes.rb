@@ -13,6 +13,8 @@ Rails.application.routes.draw do
 
   match '/records/stats' => 'records#stats', :via => :get
   match '/records/blog' => 'records#blog', :via => :get
+  match '/records/export' => 'records#export', :via => :get
+
   resources :records
 
 end

@@ -40,6 +40,16 @@ class RecordsController < ApplicationController
   def edit
   end
 
+  def export
+    respond_to do |format|
+      format.csv {
+        set_csv_headers "records.csv"
+
+        self.response_body = RecordsExport.new(current_user).generate
+      }
+    end
+  end
+
   def create
     @record = Record.new(record_params)
     if @record.save
@@ -77,4 +87,13 @@ class RecordsController < ApplicationController
     p = params.require(:record).permit(:health_state_id, :comment)
     p.merge(:user => current_user)
   end
+
+  def set_csv_headers(filename)
+    self.response.headers["Content-Type"] ||= "text/csv"
+    self.response.headers["Content-Disposition"] = "attachment; filename=#{filename}"
+    self.response.headers["Content-Transfer-Encoding"] = "binary"
+    self.response.headers["X-Accel-Buffering"] = "no"
+    self.response.headers["Cache-Control"] = "no-cache"
+  end
+
 end
