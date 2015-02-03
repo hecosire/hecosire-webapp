@@ -1,4 +1,4 @@
-- content_for(:title, "Records")
+- content_for(:title, "Records stats")
 
 - unless @records.empty?
 
@@ -23,6 +23,8 @@
 
     .row
       .col-xs-12
+        %a{:href => records_aggregates_path}
+          See aggregate values
         %hr
         %a{:href => records_path, :rel => 'nofollow'}
           %button.btn.btn-success

@@ -1,0 +1,68 @@
+- content_for(:title, "Stats")
+
+.container
+  .row
+    .col-xs-12
+      %h1 How you felt per time of day..
+      #chart-aggregates-simpler.chart
+  .row
+    .col-xs-12
+      %h1 How you felt per hour..
+      #chart-aggregates.chart
+  .row
+    .col-xs-12
+      %hr
+      %a{:href => records_path, :rel => 'nofollow'}
+        %button.btn.btn-success
+          Go back to your records
+
+- content_for :javascript do
+  :javascript
+    $(function(){
+
+      var time_of_day = [
+                ['Healthy', #{@aggregates_stats[:first_half][:healthy]}, #{@aggregates_stats[:middle_of_day][:healthy]}, #{@aggregates_stats[:second_half][:healthy]}],
+                ['Coming down', #{@aggregates_stats[:first_half][:coming_down]}, #{@aggregates_stats[:middle_of_day][:coming_down]}, #{@aggregates_stats[:second_half][:coming_down]}],
+                ['Recovering', #{@aggregates_stats[:first_half][:recovering]}, #{@aggregates_stats[:middle_of_day][:recovering]}, #{@aggregates_stats[:second_half][:recovering]}],
+                ['Sick', #{@aggregates_stats[:first_half][:sick]}, #{@aggregates_stats[:middle_of_day][:sick]}, #{@aggregates_stats[:second_half][:sick]}]
+      ]
+
+      var aggregates = [
+                ['Healthy', #{@aggregates_stats[:per_hour][:healthy].join(",")}],
+                ['Coming down', #{@aggregates_stats[:per_hour][:coming_down].join(",")}],
+                ['Recovering', #{@aggregates_stats[:per_hour][:recovering].join(",")}],
+                ['Sick', #{@aggregates_stats[:per_hour][:sick].join(",")}]
+              ];
+
+
+      var chart = c3.generate({
+      bindto: "#chart-aggregates",
+      data: {
+          columns: aggregates,
+          type: 'bar'
+      },
+      bar: {
+          width: {
+              ratio: 0.5 // this makes bar width 50% of length between ticks
+          }
+          // or
+          //width: 100 // this makes bar width 100px
+      }
+      });
+
+      var chart_halves = c3.generate({
+      bindto: "#chart-aggregates-simpler",
+      data: {
+          columns: time_of_day,
+          type: 'bar'
+      },
+      bar: {
+          width: {
+              ratio: 0.5 // this makes bar width 50% of length between ticks
+          }
+          // or
+          //width: 100 // this makes bar width 100px
+      }
+      });
+
+    });

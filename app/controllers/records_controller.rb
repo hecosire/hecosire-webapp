@@ -23,6 +23,10 @@ class RecordsController < ApplicationController
     respond_with(@records)
   end
 
+  def aggregates
+    @aggregates_stats = Record.health_state_by_hour(current_user)
+  end
+
   def log
     @records = records.where("comment is NOT NULL and comment != ''").paginate(:page => params[:page], :per_page => 10).all
     respond_with(@records)
