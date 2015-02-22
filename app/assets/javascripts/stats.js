@@ -8,6 +8,8 @@ Hecosire.generateStatCharts = function(pieId, pieColumns, linesId, linesColumns)
     },
   });
 
+  chart.resize();
+
   var chart2 = c3.generate({
     bindto: linesId,
     data: {
@@ -44,4 +46,6 @@ Hecosire.generateStatCharts = function(pieId, pieColumns, linesId, linesColumns)
       }
     }
   });
+
+  chart2.resize();
 };
