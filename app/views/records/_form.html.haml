@@ -12,7 +12,9 @@
         = f.label 'I am'
         = f.select :health_state_id do
           - @health_state_select.each do |state|
-            = content_tag(:option, state.name, value: state.id)
+            - option_options = { value: state.id }
+            - option_options.merge!(:selected => "selected") if @record.health_state_id == state.id
+            = content_tag(:option, state.name, option_options)
       .field.form-group
         = f.label :comment
         = f.text_area :comment
