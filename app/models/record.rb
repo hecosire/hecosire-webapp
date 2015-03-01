@@ -5,8 +5,12 @@ class Record < ActiveRecord::Base
   include ActionView::Helpers::JavaScriptHelper
 
   def self.health_state_by_hour(current_user)
-    offset = Time.now.gmt_offset/60/60
-    query = "select mod(CAST (date_part('hour', created_at)+(#{offset}) AS NUMERIC), 24) as hour, health_state_id, count(*) from records where user_id  = #{current_user.id} group by hour, health_state_id order by hour;"
+    time1 = Time.zone.now.in_time_zone("UTC")
+    time2 = Time.zone.now.in_time_zone(current_user.time_zone)
+    time_difference_in_seconds = time2.utc_offset - time1.utc_offset
+    diff_in_hours =  (time_difference_in_seconds/60/60).abs
+
+    query = "select date_part('hour', created_at) as hour, health_state_id, count(*) from records where user_id  = #{current_user.id} group by hour, health_state_id order by hour;"
     result = ActiveRecord::Base.connection.execute(query)
     healthy = [0] * 24
     coming_down = [0] * 24
@@ -25,7 +29,7 @@ class Record < ActiveRecord::Base
                 else
                   raise "unexpected health state id"
               end
-      state[row["hour"].to_i] = row["count"].to_i
+      state[(row["hour"].to_i+diff_in_hours)%24] = row["count"].to_i
     end
     morning_length = 11
     middle_length = 6
