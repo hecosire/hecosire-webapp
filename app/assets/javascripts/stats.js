@@ -1,5 +1,6 @@
 var Hecosire = Hecosire || {};
-Hecosire.generateStatCharts = function(pieId, pieColumns, linesId, linesColumns) {
+Hecosire.generateStatCharts = function(pieId, pieColumns, linesId, linesColumns, comments) {
+  var healthStates = ['Sick', 'Coming down', 'Recovering', 'Healthy'];
   var chart = c3.generate({
     bindto: pieId,
     data: {
@@ -17,6 +18,12 @@ Hecosire.generateStatCharts = function(pieId, pieColumns, linesId, linesColumns)
       xFormat: '%Y-%m-%d %I:%M', // 'xFormat' can be used as custom format of 'x'
       columns: linesColumns
     },
+    tooltip: {
+        format: {
+            title: function (d) { return d.toLocaleDateString() + " "+d.toLocaleTimeString(); },
+            value: function (value, ratio, id, index) { return healthStates[value-1] + ": " +comments[index]; }
+            }
+    },
     grid: {
       y: {
         lines: [
@@ -30,6 +37,7 @@ Hecosire.generateStatCharts = function(pieId, pieColumns, linesId, linesColumns)
     axis: {
       x: {
         type: 'timeseries',
+        localtime: false,
         tick: {
           format: '%Y-%m-%d %I:%M',
           rotate: 40,
@@ -40,6 +48,8 @@ Hecosire.generateStatCharts = function(pieId, pieColumns, linesId, linesColumns)
 
       },
       y: {
+        label: 'State',
+        show: false, 
         tick: {
           values: [1, 2, 3, 4]
         }

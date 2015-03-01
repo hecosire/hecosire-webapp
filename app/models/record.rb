@@ -2,6 +2,8 @@ class Record < ActiveRecord::Base
   belongs_to :user
   belongs_to :health_state
 
+  include ActionView::Helpers::JavaScriptHelper
+
   def self.health_state_by_hour(current_user)
     offset = Time.now.gmt_offset/60/60
     query = "select mod(CAST (date_part('hour', created_at)+(#{offset}) AS NUMERIC), 24) as hour, health_state_id, count(*) from records where user_id  = #{current_user.id} group by hour, health_state_id order by hour;"
@@ -59,6 +61,10 @@ class Record < ActiveRecord::Base
           recovering: recovering
         }
     }
+  end
+
+  def safe_comment
+     escape_javascript Rack::Utils.escape_html comment
   end
 
 end

@@ -42,6 +42,10 @@
   :javascript
     $(function(){
 
+      var commentsWeek = [#{@records_stats.comments(7)}];
+      var commentsMonth = [#{@records_stats.comments(31)}];
+      var commentsYear = [#{@records_stats.comments(365)}];
+
       var pieChartLastWeekColumns = [
                 ['Healthy', #{@records_stats.stats(7)[:healthy]}],
                 ['Coming down', #{@records_stats.stats(7)[:coming_down]}],
@@ -94,10 +98,10 @@
             ];
 
 
-      Hecosire.generateStatCharts('#chart-week', pieChartLastWeekColumns, '#chart-time-week', linesChartLastWeekColumns);
+      Hecosire.generateStatCharts('#chart-week', pieChartLastWeekColumns, '#chart-time-week', linesChartLastWeekColumns, commentsWeek);
       
-      Hecosire.generateStatCharts('#chart-month', pieChartLastMonthColumns, '#chart-time-month', linesChartLastMonthColumns);
+      Hecosire.generateStatCharts('#chart-month', pieChartLastMonthColumns, '#chart-time-month', linesChartLastMonthColumns, commentsMonth);
 
-      Hecosire.generateStatCharts('#chart-year', pieChartLastYearColumns, '#chart-time-year', linesChartLastYearColumns);
+      Hecosire.generateStatCharts('#chart-year', pieChartLastYearColumns, '#chart-time-year', linesChartLastYearColumns, commentsYear);
 
     });
