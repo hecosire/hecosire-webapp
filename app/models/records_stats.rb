@@ -30,7 +30,7 @@ class RecordsStats
   end
 
   def comments(days_back=7)
-    records_days_back(days_back).map {|r| "'#{r.safe_comment}'"}.join(',')
+    records_days_back(days_back).reverse.map {|r| "'#{r.safe_comment}'"}.join(',')
   end
 
   def has_data_going_back?((days_back))
