@@ -8,6 +8,9 @@
           Healthy, Coming Down, Sick & Recovering.
           %br
           %br
+          #fb-root
+          .fb-like{"data-action" => "like", "data-href" => "http://hecosire.com/", "data-layout" => "standard", "data-share" => "true", "data-show-faces" => "true"}
+
       .col-xs-12.col-md-6
         %iframe#hecosire-video{:allowfullscreen => "", :frameborder => "0", :height => "315", :src => "//www.youtube.com/embed/wICKl0kYK9M?rel=0", :width => "100%"}
 
@@ -82,3 +85,11 @@ We launched our Android app:
 
 The data you capture will help you reflect on your health. Overtime we hope to provide insights that will allow you to be more often healthy.
 
+:javascript
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
