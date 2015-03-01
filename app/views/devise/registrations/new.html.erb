@@ -13,6 +13,11 @@
           <%= f.label :email %><br />
           <%= f.email_field :email, autofocus: true %>
         </div>
+        
+        <div class="field">
+          <%= f.label :time_zone %><br />
+          <%= f.time_zone_select :time_zone, /Australia/, :default => "Melbourne" %>
+        </div>
 
         <div class="field">
           <%= f.label :password %>
