@@ -29,6 +29,10 @@ class RecordsStats
     records_days_back(days_back).map {|r| "'#{map_health_state_id_for_view(r.health_state_id)}'"}.join(',')
   end
 
+  def has_data_going_back?((days_back))
+    !(@records.select{|r|r.created_at > days_back.days.ago }.empty?)
+  end
+
   private
 
   def records_days_back(days_back)

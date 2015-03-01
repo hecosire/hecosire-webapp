@@ -10,16 +10,24 @@
         %h1 How you felt..
         Displaying data going back
         = time_ago_in_words(@records.last.created_at)
-    .row
-      .col-xs-12
-        %h2 Last week
-        #chart-time-week.chart
-        #chart-week.chart
-    .row
-      .col-xs-12
-        %h2 Last month
-        #chart-time-month.chart
-        #chart-month.chart
+    - if @records_stats.has_data_going_back?(7)
+      .row
+        .col-xs-12
+          %h2 Last week
+          #chart-time-week.chart
+          #chart-week.chart
+    - if @records_stats.has_data_going_back?(31)
+      .row
+        .col-xs-12
+          %h2 Last month
+          #chart-time-month.chart
+          #chart-month.chart
+    - if @records_stats.has_data_going_back?(365)
+      .row
+        .col-xs-12
+          %h2 Last year
+          #chart-time-year.chart
+          #chart-year.chart
 
     .row
       .col-xs-12
@@ -51,6 +59,23 @@
 
             ];
 
+      var pieChartLastYearColumns = [
+                ['Healthy', #{@records_stats.stats(365)[:healthy]}],
+                ['Coming down', #{@records_stats.stats(365)[:coming_down]}],
+                ['Sick', #{@records_stats.stats(365)[:sick]}],
+                ['Recovering', #{@records_stats.stats(365)[:recovering]}]
+              ];
+
+      var linesChartLastYearColumns = [
+                ['x',
+                #{@records_stats.dates_for_timechart(365)}
+                ],
+                ['y',
+                #{@records_stats.states_for_timechart(365)}
+                ]
+
+            ];      
+
       var pieChartLastMonthColumns = [
                 ['Healthy', #{@records_stats.stats(31)[:healthy]}],
                 ['Coming down', #{@records_stats.stats(31)[:coming_down]}],
@@ -70,6 +95,9 @@
 
 
       Hecosire.generateStatCharts('#chart-week', pieChartLastWeekColumns, '#chart-time-week', linesChartLastWeekColumns);
+      
       Hecosire.generateStatCharts('#chart-month', pieChartLastMonthColumns, '#chart-time-month', linesChartLastMonthColumns);
+
+      Hecosire.generateStatCharts('#chart-year', pieChartLastYearColumns, '#chart-time-year', linesChartLastYearColumns);
 
     });

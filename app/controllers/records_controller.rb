@@ -16,7 +16,7 @@ class RecordsController < ApplicationController
   end
 
   def stats
-    @records = records.paginate(:page => params[:page], :per_page => 150).all
+    @records = records.paginate(:page => params[:page], :per_page => 200).all
 
     @records_stats = RecordsStats.new(@records)
 
