@@ -5,9 +5,30 @@
         %h1
           HeCoSiRe
         %p
-          Healthy, Coming Down, Sick & Recovering.
+          Track your health.
           %br
           %br
+
+        %p HeCoSiRe is a health tracker. Use it to track how you feel and get insight into your health.
+
+        - if user_signed_in?
+          %a{:href => records_path, :rel => 'nofollow'}
+            %button.btn.btn-success
+              Manage your records
+          %a{:href => new_record_path, :rel => 'nofollow'}
+            %button.btn.btn-primary
+              Report how you feel
+
+        - else
+          To start simply
+          %a{:href => new_user_registration_path, :rel => 'nofollow'}
+            %button.btn.btn-primary
+              create free account
+          or
+          = link_to('login', new_user_session_path, :rel => 'nofollow')
+          if you already have one.
+
+        .facebook
           #fb-root
           .fb-like{"data-action" => "like", "data-href" => "http://hecosire.com/", "data-layout" => "standard", "data-share" => "true", "data-show-faces" => "true"}
 
@@ -15,30 +36,25 @@
         %iframe#hecosire-video{:allowfullscreen => "", :frameborder => "0", :height => "315", :src => "//www.youtube.com/embed/wICKl0kYK9M?rel=0", :width => "100%"}
 
 
-%p HeCoSiRe is a health tracker. You can use it to track how you feel and get insight into your health.
-
-- if user_signed_in?
-  %a{:href => records_path, :rel => 'nofollow'}
-    %button.btn.btn-success
-      Manage your records
-  %a{:href => new_record_path, :rel => 'nofollow'}
-    %button.btn.btn-primary
-      Report how you feel
-
-- else
-  To start simply
-  %a{:href => new_user_registration_path, :rel => 'nofollow'}
-    %button.btn.btn-primary
-      create free account
-  or
-  = link_to('login', new_user_session_path, :rel => 'nofollow')
-  if you already have one.
 
 %h1 How it works
 
-Whenever you feel like (we recommend at least daily) capture how you feel using the app.
-
 .container
+  .row
+    .col-xs-12.col-sm-12.col-md-8
+      %h2 1. Track how you feel
+      .screen-shots-capture
+        = image_tag("howareyou.png")
+        = image_tag("howareyouandroid.png")
+
+      Whenever you feel like (we recommend at least daily) capture how you feel using the app.
+    .col-xs-12.col-sm-12.col-md-4
+      %h2 2. Get insights
+      = image_tag("stats.png")
+
+  .row
+    .col-xs-12
+      %h2 What different states mean
   .row
     .col-xs-12.col-sm-6
       .panel.panel-default.panel-health-state
@@ -84,6 +100,16 @@ We launched our Android app:
 %h2 The benefit
 
 The data you capture will help you reflect on your health. Overtime we hope to provide insights that will allow you to be more often healthy.
+
+- unless user_signed_in?
+  %p
+
+  %h2 Interested?
+
+  To start simply
+  %a{:href => new_user_registration_path, :rel => 'nofollow'}
+    %button.btn.btn-primary
+      create free account
 
 :javascript
   (function(d, s, id) {
