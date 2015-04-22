@@ -64,3 +64,13 @@
   margin-top: 20px;
   margin-bottom: 20px;
 }
+
+.centered-images {
+  @media (max-width: 600px) {
+    img {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+}
