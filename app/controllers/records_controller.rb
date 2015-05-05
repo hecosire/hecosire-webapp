@@ -23,6 +23,15 @@ class RecordsController < ApplicationController
     respond_with(@records)
   end
 
+  def wordcloud
+    @wordcloud = {}
+    @wordcloud['all'] = Record.wordcloud(current_user)
+    @wordcloud['healthy'] = Record.wordcloud(current_user, HealthState::HEALTHY)
+    @wordcloud['coming_down'] = Record.wordcloud(current_user, HealthState::COMING_DOWN)
+    @wordcloud['sick'] = Record.wordcloud(current_user, HealthState::SICK)
+    @wordcloud['recovering'] = Record.wordcloud(current_user, HealthState::RECOVERING)
+  end
+
   def aggregates
     @aggregates_stats = Record.health_state_by_hour(current_user)
   end

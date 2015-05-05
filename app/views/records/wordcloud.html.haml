@@ -1,0 +1,51 @@
+- content_for(:title, "Word cloud")
+
+.container
+  .row
+    .col-xs-12
+      %h1 Word cloud
+      #wordcloud-all.wordcloud
+  - unless @wordcloud['healthy'].empty?
+    .row
+      .col-xs-12
+        %h1 Word cloud healthy
+        #wordcloud-healthy.wordcloud
+  - unless @wordcloud['coming_down'].empty?
+    .row
+      .col-xs-12
+        %h1 Word cloud coming down
+        #wordcloud-coming-down.wordcloud
+  - unless @wordcloud['sick'].empty?
+    .row
+      .col-xs-12
+        %h1 Word cloud sick
+        #wordcloud-sick.wordcloud
+  - unless @wordcloud['recovering'].empty?
+    .row
+      .col-xs-12
+        %h1 Word cloud recovering
+        #wordcloud-recovering.wordcloud
+
+  .row
+    .col-xs-12
+      %hr
+      %a{:href => records_path, :rel => 'nofollow'}
+        %button.btn.btn-success
+          Go back to your records
+%script
+  - %w(all healthy coming_down sick recovering).each do |state|
+    var word_array_#{state} = [
+    - @wordcloud[state].each do |key, value|
+      {text: "#{key}", weight: #{value}},
+    ];
+
+
+- content_for :javascript do
+  :javascript
+    $(function(){
+       $("#wordcloud-all").jQCloud(word_array_all);
+       $("#wordcloud-healthy").jQCloud(word_array_healthy);
+       $("#wordcloud-coming-down").jQCloud(word_array_coming_down);
+       $("#wordcloud-sick").jQCloud(word_array_sick);
+       $("#wordcloud-recovering").jQCloud(word_array_recovering);
+    });

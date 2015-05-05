@@ -4,6 +4,18 @@ class Record < ActiveRecord::Base
 
   include ActionView::Helpers::JavaScriptHelper
 
+  def self.wordcloud(current_user, health_state_id=nil)
+    record_query = Record.where(user_id: current_user)
+    record_query = record_query.where(health_state_id: health_state_id) if health_state_id
+    comments = record_query.pluck(:comment).compact
+    words = comments.map{ |c| c.split(" ")}.flatten
+    @wordcloud = Hash.new(0)
+    words.each { |word| @wordcloud[word] += 1 }
+    #@wordcloud.reject!{ |k,v| v == 1 }
+    @wordcloud.reject!{ |k,v| k.size < 3 }
+    @wordcloud
+  end
+
   def self.health_state_by_hour(current_user)
     time1 = Time.zone.now.in_time_zone("UTC")
     time2 = Time.zone.now.in_time_zone(current_user.time_zone)

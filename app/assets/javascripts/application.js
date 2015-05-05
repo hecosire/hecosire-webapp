@@ -16,4 +16,5 @@
 //= require bootstrap-sprockets
 //= require d3.min
 //= require c3.min
+//= require jqcloud-1.0.4.min
 //= require_tree .
