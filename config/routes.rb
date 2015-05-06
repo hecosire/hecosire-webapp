@@ -2,6 +2,8 @@ Rails.application.routes.draw do
 
   get 'status' => 'status#index', :via => :get
 
+  get 'how-it-works' => 'welcome#how_it_works', :via => :get
+
   root 'welcome#index'
 
   devise_for :users

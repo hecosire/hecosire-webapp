@@ -1,0 +1,52 @@
+%h1 How it works?
+.container
+  = render 'how_it_works'
+  .row
+    .col-xs-12
+      %h2 What different states mean
+  .row
+    .col-xs-12.col-sm-6
+      .panel.panel-default.panel-health-state
+        .panel-heading
+          Healthy
+        .panel-body
+          .panel-health-body-content.panel-health-body-content-healthy
+            .panel-health-body-text
+              You feeling healthy, great!
+
+
+    .col-xs-12.col-sm-6
+      .panel.panel-default.panel-health-state
+        .panel-heading
+          Coming Down
+        .panel-body
+          .panel-health-body-content.panel-health-body-content-coming-down
+            .panel-health-body-text
+              You don't feel quite right, maybe you getting down with cold?
+  .row
+    .col-xs-12.col-sm-6
+      .panel.panel-default.panel-health-state
+        .panel-heading
+          Sick
+        .panel-body
+          .panel-health-body-content.panel-health-body-content-sick
+            .panel-health-body-text
+              No doubt, you feel sick. You probably should see a doctor and stay home.
+    .col-xs-12.col-sm-6
+      .panel.panel-default.panel-health-state
+        .panel-heading
+          Recovering
+        .panel-body
+          .panel-health-body-content.panel-health-body-content-recovery
+            .panel-health-body-text
+              Still not 100% healthy, but getting better.
+
+- unless user_signed_in?
+  %p
+
+  %h2 Interested?
+
+  To start simply
+  %a{:href => new_user_registration_path, :rel => 'nofollow'}
+    %button.btn.btn-primary
+      create free account
