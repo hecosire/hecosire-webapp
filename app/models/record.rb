@@ -4,16 +4,26 @@ class Record < ActiveRecord::Base
 
   include ActionView::Helpers::JavaScriptHelper
 
+  def self.wordcloud_last_healthy_comment(current_user)
+    record_query = Record.where(user_id: current_user).pluck(:comment, :health_state_id)
+    r1 = record_query.select { |e| e[0].present? || e[1] != 1}
+    r2 = record_query.select { |e| e[0].present? || e[1] != 1}
+
+    r2.shift
+
+    mix = r1.zip(r2)
+
+    comments = mix.select do |e|   e[0][0].present? && e[0][1] == 1 && e[1]  && e[1][1] != 1 end
+    comments = comments.map { |c| c[0][0] }
+    WordCloud.new(comments)
+  end
+
+
   def self.wordcloud(current_user, health_state_id=nil)
     record_query = Record.where(user_id: current_user)
     record_query = record_query.where(health_state_id: health_state_id) if health_state_id
     comments = record_query.pluck(:comment).compact
-    words = comments.map{ |c| c.split(" ")}.flatten
-    @wordcloud = Hash.new(0)
-    words.each { |word| @wordcloud[word] += 1 }
-    #@wordcloud.reject!{ |k,v| v == 1 }
-    @wordcloud.reject!{ |k,v| k.size < 3 }
-    @wordcloud
+    WordCloud.new(comments)
   end
 
   def self.health_state_by_hour(current_user)

@@ -1,10 +1,22 @@
 - content_for(:title, "Word cloud")
 
 .container
-  .row
-    .col-xs-12
-      %h1 Word cloud
-      #wordcloud-all.wordcloud
+  - unless @wordcloud['last_healthy_comment'].empty?
+    .row
+      .col-xs-12
+        %h1 Words before feeling sick
+        #wordcloud-before-sick.wordcloud
+    .row
+      .col-xs-12
+        %h1 Comments before feeling sick
+        - @last_healthy_comment.each do |c|
+          %p
+            = c
+  - unless @wordcloud['all'].empty?
+    .row
+      .col-xs-12
+        %h1 Word cloud
+        #wordcloud-all.wordcloud
   - unless @wordcloud['healthy'].empty?
     .row
       .col-xs-12
@@ -33,7 +45,7 @@
         %button.btn.btn-success
           Go back to your records
 %script
-  - %w(all healthy coming_down sick recovering).each do |state|
+  - %w(all healthy coming_down sick recovering last_healthy_comment).each do |state|
     var word_array_#{state} = [
     - @wordcloud[state].each do |key, value|
       {text: "#{key}", weight: #{value}},
@@ -48,4 +60,5 @@
        $("#wordcloud-coming-down").jQCloud(word_array_coming_down);
        $("#wordcloud-sick").jQCloud(word_array_sick);
        $("#wordcloud-recovering").jQCloud(word_array_recovering);
+       $("#wordcloud-before-sick").jQCloud(word_array_last_healthy_comment);
     });

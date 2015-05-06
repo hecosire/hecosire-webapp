@@ -25,11 +25,14 @@ class RecordsController < ApplicationController
 
   def wordcloud
     @wordcloud = {}
-    @wordcloud['all'] = Record.wordcloud(current_user)
-    @wordcloud['healthy'] = Record.wordcloud(current_user, HealthState::HEALTHY)
-    @wordcloud['coming_down'] = Record.wordcloud(current_user, HealthState::COMING_DOWN)
-    @wordcloud['sick'] = Record.wordcloud(current_user, HealthState::SICK)
-    @wordcloud['recovering'] = Record.wordcloud(current_user, HealthState::RECOVERING)
+    @wordcloud['all'] = Record.wordcloud(current_user).generate
+    @wordcloud['healthy'] = Record.wordcloud(current_user, HealthState::HEALTHY).generate
+    @wordcloud['coming_down'] = Record.wordcloud(current_user, HealthState::COMING_DOWN).generate
+    @wordcloud['sick'] = Record.wordcloud(current_user, HealthState::SICK).generate
+    @wordcloud['recovering'] = Record.wordcloud(current_user, HealthState::RECOVERING).generate
+    last_healthy_comment = Record.wordcloud_last_healthy_comment(current_user)
+    @wordcloud['last_healthy_comment'] = last_healthy_comment.generate
+    @last_healthy_comment = last_healthy_comment.comments.uniq
   end
 
   def aggregates
