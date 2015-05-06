@@ -1,0 +1,43 @@
+.container
+  .row
+    .col-xs-12
+      %h1 How is everyone feeling now?
+      = @states_count_now[1]
+      people are feeling healthy :)
+      #pie-chart-now
+      %h1 How are you feeling?
+      - if user_signed_in?
+        %a{:href => new_record_path, :rel => 'nofollow'}
+          %button.btn.btn-primary
+            Report how you feel
+      - else
+        To share
+        %a{:href => new_user_registration_path, :rel => 'nofollow'}
+          %button.btn.btn-primary
+            create free account
+        or
+        = link_to('login', new_user_session_path, :rel => 'nofollow')
+        if you already have one.
+
+
+- content_for :javascript do
+  :javascript
+    $(function(){
+
+      var pieColumnsNow = [
+                ['Healthy', #{@states_count_now[1]}],
+                ['Coming down', #{@states_count_now[2]}],
+                ['Sick', #{@states_count_now[3]}],
+                ['Recovering', #{@states_count_now[4]}]
+              ];
+
+      var chart = c3.generate({
+        bindto: '#pie-chart-now',
+        data: {
+        columns: pieColumnsNow,
+        type: 'pie'
+      }
+    });
+
+    chart.resize();
+    });

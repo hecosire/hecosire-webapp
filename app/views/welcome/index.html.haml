@@ -101,6 +101,11 @@ We launched our Android app:
 
 The data you capture will help you reflect on your health. Overtime we hope to provide insights that will allow you to be more often healthy.
 
+%h2 How is everyone feeling?
+
+Glad you asked,
+= link_to('find out here how other users are feeling.', status_path)
+
 - unless user_signed_in?
   %p
 
@@ -110,6 +115,7 @@ The data you capture will help you reflect on your health. Overtime we hope to p
   %a{:href => new_user_registration_path, :rel => 'nofollow'}
     %button.btn.btn-primary
       create free account
+
 
 :javascript
   (function(d, s, id) {
