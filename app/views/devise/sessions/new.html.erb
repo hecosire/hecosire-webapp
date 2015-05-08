@@ -25,7 +25,10 @@
         <div class="actions">
           <%= f.submit "Log in", class: "btn btn-default btn-primary" %>
         </div>
-      <% end %>
+
+        <%= link_to "Log in with Facebook", user_omniauth_authorize_path(:facebook) %>
+
+    <% end %>
 
     </div>
     <div class="col-xs-12 col-sm-6 col-md-8">

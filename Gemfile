@@ -52,6 +52,9 @@ gem 'bootstrap-sass'
 gem 'autoprefixer-rails'
 gem 'devise'
 
+gem 'omniauth'
+gem 'omniauth-facebook'
+
 gem 'rails_12factor', group: :production
 
 gem 'newrelic_rpm'
