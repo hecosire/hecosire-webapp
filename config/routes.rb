@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get 'status' => 'status#index', :via => :get
 
   get 'how-it-works' => 'welcome#how_it_works', :via => :get
+  get 'privacy-policy' => 'welcome#privacy_policy', :via => :get
 
   root 'welcome#index'
 
