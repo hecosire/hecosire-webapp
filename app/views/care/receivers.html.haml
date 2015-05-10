@@ -1,0 +1,33 @@
+- unless @receivers.empty?
+  .container
+    .row
+      .col-xs-12
+        %h1 People you care for:
+    .row
+      .col-xs-12.col-sm-6
+
+        %table.table
+          %thead
+            %tr
+              %th User
+              %th Health state
+              %th When
+          %tbody
+            - @receivers.each do |receiver|
+              %tr
+                %td
+                  = receiver.email
+                %td= receiver.last_record.health_state
+                %td
+                  = time_ago_in_words(receiver.last_record.created_at)
+                  ago
+
+- if @receivers.empty?
+  .container
+    .row
+      .col-xs-12
+        %h1 Do you care for someone?
+        %p Invite them to use HeCoSiRe and they will be able to share with you how they feel.
+        %i
+          This is new feature. If you want to test it, send e-mail to care@hecosire.com asking to be added to beta program.
+

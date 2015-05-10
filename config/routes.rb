@@ -22,6 +22,9 @@ Rails.application.routes.draw do
   match '/records/log' => 'records#log', :via => :get
   match '/records/export' => 'records#export', :via => :get
 
+
+  match '/care/for' => 'care#receivers', :via => :get
+
   resources :records
 
 end
