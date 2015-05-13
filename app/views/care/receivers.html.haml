@@ -22,12 +22,13 @@
                   = time_ago_in_words(receiver.last_record.created_at)
                   ago
 
-- if @receivers.empty?
-  .container
-    .row
-      .col-xs-12
-        %h1 Do you care for someone?
-        %p Invite them to use HeCoSiRe and they will be able to share with you how they feel.
-        %i
-          This is new feature. If you want to test it, send e-mail to care@hecosire.com asking to be added to beta program.
+.container
+  .row
+    .col-xs-12
+      %h1 Do you care for someone?
+      %p Invite them to use HeCoSiRe and they will be able to share with you how they feel.
+      %i
+        This is new feature. If you want to test it, send e-mail to
+        %a{:href => "mailto:care@hecosire.com?subject=Setup care for #{current_user.email}"} care@hecosire.com
+        asking to be added to beta program.
 
