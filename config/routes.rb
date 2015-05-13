@@ -16,6 +16,8 @@ Rails.application.routes.draw do
     end
   end
 
+  match '/api/v1/users/sign_in' => 'application#index', via: :options
+
   match '/records/stats' => 'records#stats', :via => :get
   match '/records/aggregates' => 'records#aggregates', :via => :get
   match '/records/wordcloud' => 'records#wordcloud', :via => :get
