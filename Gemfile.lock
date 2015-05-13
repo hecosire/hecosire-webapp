@@ -144,6 +144,7 @@ GEM
       method_source (~> 0.8.1)
       slop (~> 3.4)
     rack (1.6.0)
+    rack-cors (0.4.0)
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.2.1)
@@ -270,6 +271,7 @@ DEPENDENCIES
   omniauth-facebook
   pg
   pry
+  rack-cors
   rails (= 4.2.1)
   rails_12factor
   rollbar (~> 1.2.7)
