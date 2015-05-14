@@ -100,15 +100,17 @@ class RecordsController < ApplicationController
     cal.event do |e|
       e.dtstart = Icalendar::Values::DateTime.new event_start
       e.dtend = Icalendar::Values::DateTime.new event_end
-
+      e.url = "http://hecosire.com/records/new"
       e.summary = "How are you?"
       e.description = "Update http://hecosire.com/records/new"
-      e.ip_class = "PRIVATE"
+      e.ip_class = "PUBLIC"
 
       e.rrule = Icalendar::Values::Recur.new("FREQ=DAILY;COUNT=30;")
     end
 
-    send_data(cal.to_ical, :type => 'text/calendar', :disposition => 'inline; filename=event.vcs', :filename => 'event.vcs')
+    cal.publish
+
+    send_data(cal.to_ical, :type => 'text/x-vCalendar', :disposition => 'attachment; filename=event.ics', :filename => 'event.ics')
   end
 
   private
