@@ -7,12 +7,14 @@
         %h1 How are you feeling?
         %a{:href => new_record_path, :rel => 'nofollow'}
           %button.btn.btn-primary
+            = fa_icon "pencil"
             New Record
       - if @recent_record
         %h1 Good job!
         %p Track every day to gather valuable data about yourself.
         %a{:href => records_reminder_path, :rel => 'nofollow', :format => :ics}
           %button.btn.btn-success
+            = fa_icon "calendar"
             Remind me tomorrow
         %a{:href => new_record_path, :rel => 'nofollow'}
           %button.btn
@@ -44,7 +46,7 @@
                 %td= record.health_state
                 %td= link_to 'Show', record
                 %td= link_to 'Edit', edit_record_path(record)
-                %td= link_to 'Destroy', record, :method => :delete, :data => { :confirm => 'Are you sure?' }
+                %td= link_to '<i class="fa fa-trash"></i>'.html_safe, record, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
         = will_paginate @records
 
@@ -55,6 +57,7 @@
             We have prepared some useful graphs and stats just for you..
           %a{:href => records_stats_path, :rel => 'nofollow'}
             %button.btn.btn-success
+              = fa_icon "pie-chart"
               See my stats
           %a{:href => records_log_path, :rel => 'nofollow'}
             %button.btn.btn-success
@@ -68,6 +71,7 @@
           %p
             Keep tracking and in few days we will prepare stats for you.
           %button.btn.btn-disabled
+            = fa_icon "pie-chart"
             See my stats
           %button.btn.btn-disabled
             See my personal log
