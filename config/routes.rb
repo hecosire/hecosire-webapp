@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   match '/records/wordcloud' => 'records#wordcloud', :via => :get
   match '/records/log' => 'records#log', :via => :get
   match '/records/export' => 'records#export', :via => :get
+  match '/records/reminder' => 'records#reminder', :via => :get
 
 
   match '/care/for' => 'care#receivers', :via => :get

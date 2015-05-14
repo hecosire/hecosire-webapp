@@ -1,3 +1,5 @@
+require 'icalendar'
+
 class RecordsController < ApplicationController
   before_action :authenticate_user!
 
@@ -11,7 +13,10 @@ class RecordsController < ApplicationController
     @records = records.paginate(:page => params[:page], :per_page => 10).all
     if @records.size > 0
       @has_stats = @records.last.created_at < 1.days.ago
+      @recent_record = @records.first.created_at > 10.minutes.ago
     end
+
+
     respond_with(@records)
   end
 
@@ -83,6 +88,27 @@ class RecordsController < ApplicationController
   def destroy
     @record.destroy
     respond_with(@record)
+  end
+
+  def reminder
+
+    cal = Icalendar::Calendar.new
+
+    event_start = DateTime.now+1.days
+    event_end = DateTime.now+1.days+5.minutes
+
+    cal.event do |e|
+      e.dtstart = Icalendar::Values::DateTime.new event_start
+      e.dtend = Icalendar::Values::DateTime.new event_end
+
+      e.summary = "How are you?"
+      e.description = "Update http://hecosire.com/records/new"
+      e.ip_class = "PRIVATE"
+
+      e.rrule = Icalendar::Values::Recur.new("FREQ=DAILY;COUNT=30;")
+    end
+
+    send_data(cal.to_ical, :type => 'text/calendar', :disposition => 'inline; filename=event.vcs', :filename => 'event.vcs')
   end
 
   private
