@@ -2,6 +2,8 @@ class Record < ActiveRecord::Base
   belongs_to :user
   belongs_to :health_state
 
+  validates :comment, length: { maximum: 1000 }
+
   include ActionView::Helpers::JavaScriptHelper
 
   def self.wordcloud_last_healthy_comment(current_user)
