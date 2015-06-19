@@ -1,0 +1,23 @@
+db:
+  image: postgres
+  ports:
+    - "5432"
+web:
+  build: .
+  command: bundle exec rails s -p 3000 -b '0.0.0.0'
+  volumes:
+    - .:/myapp
+  ports:
+    - "3000:3000"
+  links:
+    - db
+  volumes_from:
+    - bundle
+bundle:
+  # 'image' will vary depending on your docker-compose 
+  # project name. You may need to run `docker-compose build web`
+  # before this works.
+  image: hecosirewebapp_web
+  command: echo Im a little data container, short and stout...
+  volumes:
+    - /bundle

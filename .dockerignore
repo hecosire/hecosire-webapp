@@ -1,0 +1,14 @@
+.git/
+.vagrant/
+compose/
+log/
+tmp/
+.gitignore
+.ruby-version
+.env
+.test-env
+circle.yml
+docker-compose.yml
+Dockerfile
+Procfile
+Vagrantfile
